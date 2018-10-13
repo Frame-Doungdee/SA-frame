@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClassificationService} from '../shared/classification/classification.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
-export interface PeriodicElement {
+export interface PeriodicElement {  
   productId: number;
   productName: string;
   classification:string;
@@ -15,7 +15,7 @@ export interface PeriodicElement {
   styleUrls: ['./classification.component.css']
 })
 export class ClassificationComponent implements OnInit {
-  productSelect:string = ''; classSelect:string = ''; typeSelect:string = ''; countrySelect:string = '';
+  productSelect:number = 0 ; classSelect:number = 0; typeSelect:number = 0; countrySelect:number = 0;
   inputClass:string = ''; inputCountry:string = ''; inputType:string = '';
   products: Array<any>;
   countrys: Array<any>;
@@ -39,13 +39,25 @@ ngOnInit() {
       const productList: PeriodicElement[] = [];
       console.log(this.products);
       for (let index = 0; index < this.products["length"]; index++) {
-        productList.push({
+        if(this.products[index].classification == null || this.products[index].country == null || this.products[index] == null){
+          productList.push({
+            productId: this.products[index].productId,
+            productName: this.products[index].productName,
+            classification: "null",
+            country: "null",
+            type: "null",
+          })
+        }
+        else{
+          productList.push({
           productId: this.products[index].productId,
           productName: this.products[index].productName,
           classification: this.products[index].classification.className,
           country: this.products[index].country.countryName,
           type: this.products[index].type.typeName,
         })
+        }
+        
       }  
       //console.log('productList[0].type =  : '+productList[0].type); 
       this.dataSource = new MatTableDataSource(productList);
@@ -76,9 +88,10 @@ ngOnInit() {
 //------------------------------------------------------------------------------------------------------
 
   updateProduct(){
-    if(this.productSelect == ''){
+    if(this.productSelect == 0){
       alert("กรุณากรอกชื่อสินค้าด้วยครับ");
     }
+    /*
     else if(this.productSelect != '' && this.typeSelect != '' && this.classSelect == '' && this.countrySelect == ''){
       this.classificationService.putClassificationTypeName(this.productSelect,this.typeSelect).subscribe(
         data => {
@@ -101,7 +114,7 @@ ngOnInit() {
           console.log('update Success');
           this.productSelect = '';
           this.classSelect = '';
-          this.getProductList();
+          this.getProductLis0t();
       },
         error => {
           alert("การจัดหมวดหมู่เกิดข้อผิดพลาด");
@@ -133,20 +146,22 @@ ngOnInit() {
     else if(this.productSelect != '' && this.classSelect != '' && this.countrySelect != '' && this.typeSelect == ''){
 
     }
+    */
     else{
       //put
       this.classificationService.putClassificationAll(this.productSelect,this.classSelect,this.typeSelect,this.countrySelect).subscribe(
         data => {
           alert("จัดหมวดหมู่แล้ว");
           console.log('update Success');
-          this.productSelect = '';
-          this.classSelect = '';
-          this.typeSelect = '';
-          this.countrySelect = '';
+          // this.productSelect = 0;
+          // this.classSelect = 0;
+          // this.typeSelect = 0;
+          // this.countrySelect = 0;
           this.getProductList();
+          
       },
         error => {
-          alert("hello");
+          alert(this.productSelect);
           console.log("Error", error);
         }
       );
@@ -157,6 +172,13 @@ ngOnInit() {
     }
   }
 
+  isClassNameNull(className:string):boolean{
+    if(className == ' '){
+      return false;
+    }
+    return true;
+    
+  }
   addClassification(){
     if(this.isThai(this.inputClass) || this.isClassificationDuplicate(this.inputClass)){
       if(this.isThai(this.inputClass))

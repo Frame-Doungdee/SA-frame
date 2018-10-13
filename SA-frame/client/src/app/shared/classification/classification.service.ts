@@ -47,7 +47,7 @@ export class ClassificationService {
     });
   }
   //update classification 4 item
-  public putClassificationAll(productSelect:string,classSelect:string,typeSelect:string,countrySelect:string):Observable<any>{
+  public putClassificationAll(productSelect:number,classSelect:number,typeSelect:number,countrySelect:number):Observable<any>{
     return this.http.put(this.API + '/Classification/'+productSelect+'/'+classSelect+'/'+typeSelect+'/'+countrySelect,{
       "productName":productSelect,
       "className":classSelect,

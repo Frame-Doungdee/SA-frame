@@ -19,7 +19,7 @@
           <p>สินค้า</p>
           <mat-form-field>
             <mat-select [(ngModel)]="productSelect" placeholder="เลือกสินค้า">
-              <mat-option *ngFor="let product of products" [value]="product.productName">
+              <mat-option *ngFor="let product of products" [value]="product.productId">
                 {{product.productName}}
               </mat-option>
             </mat-select>
@@ -27,7 +27,7 @@
           <p>หมวดหมู่</p>
           <mat-form-field>
             <mat-select [(ngModel)]="classSelect" placeholder="หมวดหมู่ของสินค้า">
-              <mat-option *ngFor="let classification of classifications" [value]="classification.className">
+              <mat-option *ngFor="let classification of classifications" [value]="classification.classId">
                 {{classification.className}}
               </mat-option>
             </mat-select>
@@ -35,7 +35,7 @@
           <p>ประเภท</p>
           <mat-form-field>
             <mat-select placeholder="ประเภทของสินค้า" [(ngModel)]="typeSelect">
-              <mat-option *ngFor="let type of types " [value]="type.typeName">
+              <mat-option *ngFor="let type of types " [value]="type.typeId">
                 {{type.typeName}}
               </mat-option>
             </mat-select>
@@ -43,7 +43,7 @@
           <p>ส่งจากประเทศ</p>
           <mat-form-field>
             <mat-select placeholder="ประเทศ" [(ngModel)]="countrySelect">
-              <mat-option *ngFor="let country of countrys " [value]="country.countryName">
+              <mat-option *ngFor="let country of countrys " [value]="country.countryId">
                 {{country.countryName}}
               </mat-option>
             </mat-select>

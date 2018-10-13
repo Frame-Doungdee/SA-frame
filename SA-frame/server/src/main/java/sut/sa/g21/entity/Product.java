@@ -36,13 +36,17 @@ public class Product{
     
 
     public Product(String productName){
+        /*
         Country country = new Country(1);
         Classification classification = new Classification(1);
         Type type = new Type(1);
+        */
         this.productName = productName;
+        /*
         this.country = country;
         this.classification = classification;
         this.type = type;
+        */
     }
     
     /*

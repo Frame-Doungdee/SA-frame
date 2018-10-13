@@ -64,15 +64,21 @@ public class Controller{
         newProduct.setCountry(newCountry);                                                 
         return productRepository.save(newProduct);                               
     }
-    @PutMapping("/Classification/{productName}/{className}/{typeName}/{countryName}")
-    public Product setClassification(@PathVariable String productName,@PathVariable String className ,@PathVariable String typeName,@PathVariable String countryName) {
-        Product newProduct = productRepository.findByProductName(productName);
-        Country newCountry = countryRepository.findByCountryName(countryName);
-        Classification newClassification = classificationRepository.findByClassName(className);
-        Type newType = typeRepository.findByTypeName(typeName);
-        newProduct.setCountry(newCountry);
-        newProduct.setClassification(newClassification);                         
-        newProduct.setType(newType);                          
+    @PutMapping("/Classification/{productId}/{classId}/{typeId}/{countryId}")
+    public Product setClassification(@PathVariable Long productId,@PathVariable Long classId ,@PathVariable Long typeId,@PathVariable Long countryId) {
+        Product newProduct = productRepository.findById(productId).get();
+        if(classId > 0){
+            Classification newClassification = classificationRepository.findById(classId).get();
+            newProduct.setClassification(newClassification); 
+        }
+        if(typeId > 0){
+            Type newType = typeRepository.findById(typeId).get();
+            newProduct.setType(newType);  
+        }
+        if(countryId > 0){
+            Country newCountry = countryRepository.findById(countryId).get();
+            newProduct.setCountry(newCountry);
+        }
         return productRepository.save(newProduct);                               
     }
     // ---------------  Product ---------------
