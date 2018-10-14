@@ -59,7 +59,10 @@
           ตารางข้อมูลหมวดหมู่สินค้า
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="tableClassification">
+      <div class="table">
+          <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
         <table mat-table [dataSource]="dataSource">
 
           <!-- รหัสสินค้า Column -->

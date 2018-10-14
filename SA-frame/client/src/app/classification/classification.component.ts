@@ -123,6 +123,7 @@ ngOnInit() {
     return true;
     
   }
+  //เพิ่มหมวดหมู่
   addClassification(){
     if(this.isThai(this.inputClass) || this.isClassificationDuplicate(this.inputClass)){
       if(this.isThai(this.inputClass))
@@ -147,8 +148,8 @@ ngOnInit() {
     }
     
   }
+  //เพิ่มประเภท
   addType(){
-    //console.log(this.isTypeDuplicate(this.inputType));
     console.log(this.isThai(this.inputType));
     if(this.isThai(this.inputType) || this.isTypeDuplicate(this.inputType)){
       if(this.isThai(this.inputType))
@@ -197,5 +198,9 @@ ngOnInit() {
         return true;
     }
     return false;
+  }
+  //ค้นหา
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

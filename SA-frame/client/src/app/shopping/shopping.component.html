@@ -7,34 +7,19 @@
 <mat-grid-list cols="5" rowHeight="2:1">
   <mat-grid-tile></mat-grid-tile>
   <mat-grid-tile>
-    <mat-form-field>
-      <mat-select placeholder="ประเภทของสินค้า" [(ngModel)]="typeSelect">
-        <mat-option *ngFor="let type of types " [value]="type.typeId">
-          {{type.typeName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    
   </mat-grid-tile>
   <mat-grid-tile>
-     <mat-form-field>
-    <mat-select [(ngModel)]="classSelect" placeholder="หมวดหมู่ของสินค้า">
-      <mat-option *ngFor="let classification of classifications" [value]="classification.classId">
-        {{classification.className}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field></mat-grid-tile>
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="ค้นหา" [(ngModel)]="searchText" >
+        </mat-form-field>
+  </mat-grid-tile>
   <mat-grid-tile>
-    <mat-form-field>
-      <mat-select placeholder="ประเทศ" [(ngModel)]="countrySelect">
-        <mat-option *ngFor="let country of countrys " [value]="country.countryId">
-          {{country.countryName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+   
   </mat-grid-tile>
 </mat-grid-list>
 <mat-grid-list   cols="4" rowHeight="30rem"> 
-  <mat-grid-tile *ngFor="let product of products" >
+  <mat-grid-tile *ngFor="let product of products | myFilterPipe:searchText" >
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>

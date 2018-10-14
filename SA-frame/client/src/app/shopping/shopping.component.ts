@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassificationService } from '../shared/classification/classification.service';
+import { MatTableDataSource } from '@angular/material';
 export interface PeriodicElement {  
   productId: number;
   productName: string;
@@ -18,9 +19,12 @@ export interface PeriodicElement {
 export class ShoppingComponent implements OnInit {
   products:any;
   dataSource:any;
+  fillter:any;
+
   constructor(private classificationService: ClassificationService) { }
   ngOnInit() {  
     this.getProductList();
+    this.fillter = new MatTableDataSource(this.dataSource);
   }
   getProductList(){
     this.classificationService.getProduct().subscribe(data => {
@@ -60,7 +64,5 @@ export class ShoppingComponent implements OnInit {
   }
   addToCard(product:any){
     console.log(product);
-  }  
-  
-
+  } 
 }

@@ -15,6 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 import { CardComponent } from './card/card.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ClassificationService} from './shared/classification/classification.service';
+import { MyFilterPipePipe } from './my-filter-pipe.pipe';
 
 const appRoutes: Routes = [
   {path: 'classification', component: ClassificationComponent},
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     AppComponent,
     ClassificationComponent,
     ShoppingComponent,
-    CardComponent
+    CardComponent,
+    MyFilterPipePipe
   ],
   imports: [
     BrowserModule,
