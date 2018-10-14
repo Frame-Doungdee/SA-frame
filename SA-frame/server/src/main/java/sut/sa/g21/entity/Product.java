@@ -32,13 +32,12 @@ public class Product{
     @JoinColumn(name= "typeId")
     private Type type;
     
+
     public Product(){}
     
-
     public Product(String productName){
         this.productName = productName;
     }
-    
     
     public Product(String productName,String productDetail,double productPrice,String productImgUrl,long classId,long countryId,long typeId){
         Country country = new Country(countryId);

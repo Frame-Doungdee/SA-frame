@@ -14,7 +14,6 @@ public class Classification{
     @SequenceGenerator(name="Classification_seq",sequenceName="Classification_seq")               
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="Classification_seq")
     private @NonNull long classId;
-    @Column(name="className",unique = true, nullable = false)
     private @NonNull String className;
         
     public Classification(){}

@@ -12,7 +12,6 @@ import { ShoppingComponent } from './shopping/shopping.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTableModule} from '@angular/material/table';
-import { CardComponent } from './card/card.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ClassificationService} from './shared/classification/classification.service';
 import { MyFilterPipePipe } from './my-filter-pipe.pipe';
@@ -27,7 +26,6 @@ const appRoutes: Routes = [
     AppComponent,
     ClassificationComponent,
     ShoppingComponent,
-    CardComponent,
     MyFilterPipePipe
   ],
   imports: [

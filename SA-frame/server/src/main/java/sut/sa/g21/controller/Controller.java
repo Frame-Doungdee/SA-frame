@@ -16,7 +16,6 @@ import sut.sa.g21.repository.ClassificationRepository;
 import sut.sa.g21.repository.CountryRepository;
 import sut.sa.g21.repository.ProductRepository;
 import sut.sa.g21.repository.TypeRepository;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class Controller{
