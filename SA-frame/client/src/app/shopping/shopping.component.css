@@ -1,3 +1,9 @@
-mat-grid-tile {
-    background:#cff2ce;
+.example-card {
+    max-width: 250px;
+    background-color:skyblue;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
   }

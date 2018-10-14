@@ -37,10 +37,33 @@ public class DemoApplication {
             });
 			typeRepository.findAll().forEach(System.out::println);
 
-			Stream.of("iPhone 8","Samsung Galaxy S9+","G-Shock G-STEEL GST-400G-1A9DR นาฬิกา","NIKE Miler SS PR เสื้อวิ่งผู้ชาย","Michael Kors JET SET ITEM BACKPACK VANILLA").forEach(productName -> { 
-                productRepository.save(new Product(productName));
-            });
-			productRepository.findAll().forEach(System.out::println);	
+			// Stream.of("iPhone 8","Samsung Galaxy S9+","G-Shock G-STEEL GST-400G-1A9DR นาฬิกา","NIKE Miler SS PR เสื้อวิ่งผู้ชาย","Michael Kors JET SET ITEM BACKPACK VANILLA").forEach(productName -> { 
+            //     productRepository.save(new Product(productName));
+            // });
+			// productRepository.findAll().forEach(System.out::println);
+			
+			
+
+			String productList[] = {"Ferrari", "Porsche", "Lamborghini", "Bugatti","Audi", "Ford", "Nissan"};
+			String detailProduct[] = {"Ferrari 488", "Porsche 911", "Lamborghini Aventador", "Bugatti Chiron", "Audi R8", "Ford Mustang", "Nissan GTR R35"};
+			String imgUrl[] = {
+				"https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/images/car-reviews/first-drives/legacy/488-spieder-web-024.jpg?itok=RU9katpv",
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Porsche_918_Spyder_SAO_2014_0281.JPG/1200px-Porsche_918_Spyder_SAO_2014_0281.JPG",
+				"https://hips.hearstapps.com/amv-prod-cad-assets.s3.amazonaws.com/images/16q2/667349/2016-lamborghini-aventador-lp750-4-superveloce-test-review-car-and-driver-photo-667354-s-original.jpg",
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Bugatti_Chiron_IMG_0087.jpg/1200px-Bugatti_Chiron_IMG_0087.jpg",
+				"https://s.aolcdn.com/commerce/autodata/images/USC70AUC171B021001.jpg",
+				"https://www.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/images/car-reviews/first-drives/legacy/mustang-wc-3966.jpg?itok=5fOhpOXz",
+				"https://cdn.shopify.com/s/files/1/0747/3829/products/mQ0326_1024x1024.jpeg?v=1485014085"};
+			double productPrice[] = {599.0, 650.0, 789.0, 669.0, 889.0, 999.0, 556.0};
+			for(int i = 0; i < productList.length; i++) {
+				Product product = new Product();
+				product.setProductName(productList[i]);
+				product.setProductDetail(detailProduct[i]);
+				product.setProductImgUrl(imgUrl[i]);
+				product.setProductPrice(productPrice[i]);
+				productRepository.save(product);
+			}
+			productRepository.findAll().forEach(System.out::println);
 		};
 	}
 }

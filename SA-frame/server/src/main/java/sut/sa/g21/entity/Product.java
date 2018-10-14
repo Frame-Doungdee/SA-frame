@@ -36,20 +36,10 @@ public class Product{
     
 
     public Product(String productName){
-        /*
-        Country country = new Country(1);
-        Classification classification = new Classification(1);
-        Type type = new Type(1);
-        */
         this.productName = productName;
-        /*
-        this.country = country;
-        this.classification = classification;
-        this.type = type;
-        */
     }
     
-    /*
+    
     public Product(String productName,String productDetail,double productPrice,String productImgUrl,long classId,long countryId,long typeId){
         Country country = new Country(countryId);
         Classification classification = new Classification(classId);
@@ -62,5 +52,5 @@ public class Product{
         this.classification = classification;
         this.type = type;
     }
-    */
+    
 }

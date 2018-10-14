@@ -42,28 +42,6 @@ public class Controller{
         Classification newClassification = new Classification(className);
         return classificationRepository.save(newClassification);  
     }
-
-    @PutMapping("/Classification/ClassName/{productName}/{className}")
-    public Product putClassName(@PathVariable String productName,@PathVariable String className) {
-        Product newProduct = productRepository.findByProductName(productName);
-        Classification newClassification = classificationRepository.findByClassName(className);
-        newProduct.setClassification(newClassification);                                                
-        return productRepository.save(newProduct);                               
-    }
-    @PutMapping("/Classification/TypeName/{productName}/{typeName}")
-    public Product putType(@PathVariable String productName,@PathVariable String typeName) {
-        Product newProduct = productRepository.findByProductName(productName);
-        Type newType = typeRepository.findByTypeName(typeName);
-        newProduct.setType(newType);                                                  
-        return productRepository.save(newProduct);                               
-    }
-    @PutMapping("/Classification/CountryName/{productName}/{countryName}")
-    public Product putCountry(@PathVariable String productName,@PathVariable String countryName) {
-        Product newProduct = productRepository.findByProductName(productName);
-        Country newCountry = countryRepository.findByCountryName(countryName);
-        newProduct.setCountry(newCountry);                                                 
-        return productRepository.save(newProduct);                               
-    }
     @PutMapping("/Classification/{productId}/{classId}/{typeId}/{countryId}")
     public Product setClassification(@PathVariable Long productId,@PathVariable Long classId ,@PathVariable Long typeId,@PathVariable Long countryId) {
         Product newProduct = productRepository.findById(productId).get();

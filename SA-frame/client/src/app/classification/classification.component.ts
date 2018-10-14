@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClassificationService} from '../shared/classification/classification.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 export interface PeriodicElement {  
   productId: number;
   productName: string;
@@ -24,46 +23,47 @@ export class ClassificationComponent implements OnInit {
   dataSource:any;
   displayedColumns: string[] = ['productId', 'productName', 'classification', 'country','type'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
   constructor(private classificationService: ClassificationService) { }
 ngOnInit() {
       this.getProductList();
       this.getClassificationList();
       this.getCountryList();
       this.getTypeList();
-  }
+}
   //------------Load data -------------
   getProductList(){
     this.classificationService.getProduct().subscribe(data => {
-      this.products = data;
-      const productList: PeriodicElement[] = [];
-      console.log(this.products);
-      for (let index = 0; index < this.products["length"]; index++) {
-        if(this.products[index].classification == null || this.products[index].country == null || this.products[index] == null){
-          productList.push({
-            productId: this.products[index].productId,
-            productName: this.products[index].productName,
-            classification: "null",
-            country: "null",
-            type: "null",
-          })
-        }
-        else{
-          productList.push({
-          productId: this.products[index].productId,
-          productName: this.products[index].productName,
-          classification: this.products[index].classification.className,
-          country: this.products[index].country.countryName,
-          type: this.products[index].type.typeName,
-        })
-        }
-        
+    this.products = data;
+    const productList: PeriodicElement[] = [];
+    console.log(this.products);
+    let productClassification,productType,productCountry;
+    for (let index = 0; index < this.products["length"]; index++) {
+      if(this.products[index].classification == null)
+         productClassification = "null";
+      else
+        productClassification = this.products[index].classification.className;
+      if (this.products[index].country == null) 
+        productCountry = "null";
+      else 
+        productCountry = this.products[index].country.countryName;
+      if(this.products[index].type == null)
+        productType = "null"
+      else
+        productType = this.products[index].type.typeName;
+      productList.push({
+        productId: this.products[index].productId,
+        productName: this.products[index].productName,
+        classification: productClassification,
+        country: productCountry,
+        type: productType,
+      })
       }  
       //console.log('productList[0].type =  : '+productList[0].type); 
       this.dataSource = new MatTableDataSource(productList);
       this.dataSource.paginator = this.paginator;
     });
-  }  
+  }
+
   getTypeList(){
     this.classificationService.getTypes().subscribe(data => {
 
@@ -84,84 +84,28 @@ ngOnInit() {
       this.classifications = data;
       console.log(this.classifications);
     });
+    
   }
 //------------------------------------------------------------------------------------------------------
 
   updateProduct(){
     if(this.productSelect == 0){
-      alert("กรุณากรอกชื่อสินค้าด้วยครับ");
+      alert("กรุณากรอกชื่อสินค้า");
     }
-    /*
-    else if(this.productSelect != '' && this.typeSelect != '' && this.classSelect == '' && this.countrySelect == ''){
-      this.classificationService.putClassificationTypeName(this.productSelect,this.typeSelect).subscribe(
-        data => {
-          alert("จัดหมวดหมู่แล้ว");
-          console.log('update Success');
-          this.productSelect = '';
-          this.typeSelect = '';
-          this.getProductList();
-      },
-        error => {
-          alert("การจัดหมวดหมู่เกิดข้อผิดพลาด");
-          console.log("Error", error);
-        }
-      );
-    }
-    else if(this.productSelect != '' && this.classSelect != '' && this.countrySelect == '' && this.typeSelect == ''){
-      this.classificationService.putClassificationClassName(this.productSelect,this.classSelect).subscribe(
-        data => {
-          alert("จัดหมวดหมู่แล้ว");
-          console.log('update Success');
-          this.productSelect = '';
-          this.classSelect = '';
-          this.getProductLis0t();
-      },
-        error => {
-          alert("การจัดหมวดหมู่เกิดข้อผิดพลาด");
-          console.log("Error", error);
-        }
-      );
-    }
-    else if(this.productSelect != '' && this.countrySelect != '' && this.typeSelect =='' && this.classSelect == ''){
-      this.classificationService.putClassificationCountryName(this.productSelect,this.countrySelect).subscribe(
-        data => {
-          alert("จัดหมวดหมู่แล้ว");
-          console.log('update Success');
-          this.productSelect = '';
-          this.countrySelect = '';
-          this.getProductList();
-      },
-        error => {
-          alert("การจัดหมวดหมู่เกิดข้อผิดพลาด");
-          console.log("Error", error);
-        }
-      );
-    }
-    else if(this.productSelect != '' && this.typeSelect != '' && this.classSelect != '' && this.countrySelect == ''){
-      
-    }
-    else if(this.productSelect != '' && this.typeSelect != '' && this.countrySelect != '' && this.classSelect == ''){
-
-    }
-    else if(this.productSelect != '' && this.classSelect != '' && this.countrySelect != '' && this.typeSelect == ''){
-
-    }
-    */
     else{
-      //put
       this.classificationService.putClassificationAll(this.productSelect,this.classSelect,this.typeSelect,this.countrySelect).subscribe(
         data => {
           alert("จัดหมวดหมู่แล้ว");
           console.log('update Success');
-          // this.productSelect = 0;
-          // this.classSelect = 0;
-          // this.typeSelect = 0;
-          // this.countrySelect = 0;
+          this.productSelect = 0;
+          this.classSelect = 0;
+          this.typeSelect = 0;
+          this.countrySelect = 0;
           this.getProductList();
           
       },
         error => {
-          alert(this.productSelect);
+          alert("จัดหมวดหมู่ล้มเหลว");
           console.log("Error", error);
         }
       );

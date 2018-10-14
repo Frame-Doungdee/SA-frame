@@ -25,29 +25,7 @@ export class ClassificationService {
   getTypes(): Observable<any> {
     return this.http.get(this.API + '/Type');
   }
-  //update typeSelect 
-  public putClassificationTypeName(productSelect:string,typeSelect:string):Observable<any>{
-    return this.http.put(this.API + '/Classification/TypeName/'+productSelect+'/'+typeSelect,{
-      "productName":productSelect,
-      "typeName":typeSelect,
-    });
-  }
-  //update classSelect
-  public putClassificationClassName(productSelect:string,classSelect:string):Observable<any>{
-    return this.http.put(this.API + '/Classification/ClassName/'+productSelect+'/'+classSelect,{
-      "productName":productSelect,
-      "className":classSelect,
-    });
-  }
-  //update countrySelect
-  public putClassificationCountryName(productSelect:string,countrySelect:string):Observable<any>{
-    return this.http.put(this.API + '/Classification/CountryName/'+productSelect+'/'+countrySelect,{
-      "productName":productSelect,
-      "countryName":countrySelect
-    });
-  }
-  //update classification 4 item
-  public putClassificationAll(productSelect:number,classSelect:number,typeSelect:number,countrySelect:number):Observable<any>{
+  putClassificationAll(productSelect:number,classSelect:number,typeSelect:number,countrySelect:number):Observable<any>{
     return this.http.put(this.API + '/Classification/'+productSelect+'/'+classSelect+'/'+typeSelect+'/'+countrySelect,{
       "productName":productSelect,
       "className":classSelect,

@@ -1,35 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+import { ClassificationService } from '../shared/classification/classification.service';
+export interface PeriodicElement {  
+  productId: number;
+  productName: string;
+  classification:string;
+  country:string;
+  type:string;
+  detail:string;
+  price:number;
+  imgUrl:string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 @Component({
   selector: 'app-shopping',
   templateUrl: './shopping.component.html',
   styleUrls: ['./shopping.component.css']
 })
 export class ShoppingComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-  items = ['p','s','b','a','m','t','k','q'];
-  constructor() { }
-
-  ngOnInit() {
+  products:any;
+  dataSource:any;
+  constructor(private classificationService: ClassificationService) { }
+  ngOnInit() {  
+    this.getProductList();
   }
+  getProductList(){
+    this.classificationService.getProduct().subscribe(data => {
+    this.products = data;
+    const productList: PeriodicElement[] = [];
+    console.log(this.products);
+    let productClassification,productType,productCountry;
+    for (let index = 0; index < this.products["length"]; index++) {
+      console.log(this.products[index].productImgUrl);
+      if(this.products[index].classification == null)
+         productClassification = "null";
+      else
+        productClassification = this.products[index].classification.className;
+      if (this.products[index].country == null) 
+        productCountry = "null";
+      else 
+        productCountry = this.products[index].country.countryName;
+      if(this.products[index].type == null)
+        productType = "null"
+      else
+        productType = this.products[index].type.typeName;
+        productList.push({
+        productId: this.products[index].productId,
+        productName: this.products[index].productName,
+        classification: productClassification,
+        country: productCountry,
+        type: productType,
+        detail:this.products[index].productDetail,
+        price:this.products[index].productPrice,
+        imgUrl:this.products[index].productImgUrl,
+      })
+      }  
+      //console.log('productList[0].type =  : '+productList[0].type); 
+      // this.dataSource = new (productList);
+      // this.dataSource.paginator = this.paginator;
+    });
+  }
+  addToCard(product:any){
+    console.log(product);
+  }  
+  
 
 }
