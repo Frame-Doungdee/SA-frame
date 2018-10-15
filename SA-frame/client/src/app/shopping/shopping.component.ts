@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassificationService } from '../shared/classification/classification.service';
 import { MatTableDataSource } from '@angular/material';
+import {PageEvent} from '@angular/material';
+
 export interface PeriodicElement {  
   productId: number;
   productName: string;
@@ -17,52 +19,60 @@ export interface PeriodicElement {
   styleUrls: ['./shopping.component.css']
 })
 export class ShoppingComponent implements OnInit {
-  products:any;
+  products:Array<any>; //source
   dataSource:any;
-  fillter:any;
+
+  
+  pageEvent: PageEvent;
+  activePageDataChunk = [];
+  productList = [];
+  pageSize = 4;
+  productLength:any;
+
 
   constructor(private classificationService: ClassificationService) { }
   ngOnInit() {  
     this.getProductList();
-    this.fillter = new MatTableDataSource(this.dataSource);
   }
+
   getProductList(){
     this.classificationService.getProduct().subscribe(data => {
     this.products = data;
-    const productList: PeriodicElement[] = [];
-    console.log(this.products);
-    let productClassification,productType,productCountry;
-    for (let index = 0; index < this.products["length"]; index++) {
-      console.log(this.products[index].productImgUrl);
-      if(this.products[index].classification == null)
-         productClassification = "null";
-      else
-        productClassification = this.products[index].classification.className;
-      if (this.products[index].country == null) 
-        productCountry = "null";
-      else 
-        productCountry = this.products[index].country.countryName;
-      if(this.products[index].type == null)
-        productType = "null"
-      else
-        productType = this.products[index].type.typeName;
-        productList.push({
-        productId: this.products[index].productId,
-        productName: this.products[index].productName,
-        classification: productClassification,
-        country: productCountry,
-        type: productType,
-        detail:this.products[index].productDetail,
-        price:this.products[index].productPrice,
-        imgUrl:this.products[index].productImgUrl,
-      })
-      }  
-      //console.log('productList[0].type =  : '+productList[0].type); 
-      // this.dataSource = new (productList);
-      // this.dataSource.paginator = this.paginator;
+    this.activePageDataChunk = this.products.slice(0,this.pageSize);
+    this.productLength = this.products.length;
+    console.log(data);
     });
   }
-  addToCard(product:any){
-    console.log(product);
-  } 
+
+  onPageChanged(e) {
+    let firstCut = e.pageIndex * e.pageSize;
+    let secondCut = firstCut + e.pageSize;
+    this.activePageDataChunk = this.products.slice(firstCut, secondCut);
+  }
+
+  // addToCard(product:any){
+  //   this.PreorderService.newPreorder(product.productId,this.username).subscribe(
+  //     data => {
+  //       alert("สำเร็จ");
+  //       console.log("POST Request is successful ", data);
+  //     },
+  //     error => {
+  //       alert("ผิดพลาด");
+  //       console.log("Error", error);
+  //     }
+  //   );
+  // }
+  
+  getProductLength():number{
+    return this.productLength;
+  }
+
+  setProductLength(num:number){
+    this.productLength = num;
+  }
+
+  getProduct():Array<any>{
+    return this.products;
+  }
+  
 }

@@ -61,7 +61,7 @@
       </mat-expansion-panel-header>
       <div class="table">
           <mat-form-field>
-              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ค้นหา">
           </mat-form-field>
         <table mat-table [dataSource]="dataSource">
 
@@ -107,14 +107,14 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          เพิ่มหมวดหมู่/ประเทศ/ประเภท
+          เพิ่มหมวดหมู่/เพิ่มประเภท
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="addClassification">
           <mat-grid-list cols="4" rowHeight="2:1">
               <mat-grid-tile>
                   <mat-form-field class="example-full-width">
-                      <input matInput name="inputClass"  type="text" placeholder="ชื่อหมวดหมู่"  [(ngModel)]="inputClass" >
+                      <input matInput name="inputClass"  type="text" placeholder="ชื่อหมวดหมู่(ภาษาไทย)"  [(ngModel)]="inputClass" >
                   </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
@@ -124,11 +124,42 @@
               <mat-grid-tile></mat-grid-tile>
               <mat-grid-tile>
                   <mat-form-field class="example-full-width">
-                      <input matInput name="inputType"  type="text" placeholder="ชื่อประเภท"  [(ngModel)]="inputType" >
+                      <input matInput name="inputType"  type="text" placeholder="ชื่อประเภท(ภาษาไทย)"  [(ngModel)]="inputType" >
                   </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile>
                   <button mat-raised-button color="primary" (click)="addType()">เพิ่ม</button>
+              </mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+            </mat-grid-list>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ลบหมวดหมู่/ลบประเภท
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="addClassification">
+          <mat-grid-list cols="4" rowHeight="2:1">
+              <mat-grid-tile>
+                  <mat-form-field class="example-full-width">
+                      <input matInput name="inputClass"  type="text" placeholder="ชื่อหมวดหมู่(ภาษาไทย)"  [(ngModel)]="inputDellteClass" >
+                  </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <button mat-raised-button color="primary" (click)="deleteClassification()">ลบ</button>
+              </mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+              <mat-grid-tile>
+                  <mat-form-field class="example-full-width">
+                      <input matInput name="inputType"  type="text" placeholder="ชื่อประเภท(ภาษาไทย)"  [(ngModel)]="inputDeleteType" >
+                  </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <button mat-raised-button color="primary" (click)="delelteType()">ลบ</button>
               </mat-grid-tile>
               <mat-grid-tile></mat-grid-tile>
               <mat-grid-tile></mat-grid-tile>

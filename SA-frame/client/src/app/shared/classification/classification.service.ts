@@ -41,12 +41,7 @@ export class ClassificationService {
   }
   addType(inputType:string){
     return this.http.post(this.API + '/Type/addType/'+inputType,{
-      "className":inputType,
-    });
-  }
-  addCountry(inputCountry:string){
-    return this.http.post(this.API + '/Country/addCountry/'+inputCountry,{
-      "className":inputCountry,
+      "typeName":inputType,
     });
   }
 }

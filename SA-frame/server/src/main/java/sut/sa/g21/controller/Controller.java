@@ -1,13 +1,16 @@
 package sut.sa.g21.controller;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import sut.sa.g21.entity.Classification;
 import sut.sa.g21.entity.Country;
 import sut.sa.g21.entity.Product;
@@ -30,16 +33,15 @@ public class Controller{
     public Collection<Classification> classification(){
         return classificationRepository.findAll();
     }
-
-    @GetMapping("/Classification/{classID}")
-    public Optional<Classification> takeinClassificationByid(@PathVariable Long classID ){
-        return classificationRepository.findById(classID);
-    }
-
     @PostMapping("/Classification/addClassification/{className}")
     public Classification newClassification(@PathVariable String className){
         Classification newClassification = new Classification(className);
         return classificationRepository.save(newClassification);  
+    }
+    @DeleteMapping("DeleteClassification/{classID}")
+    public void deleteClassification(@PathVariable Long classID){
+        Classification target = classificationRepository.findById(classID).get();
+        classificationRepository.delete(target);
     }
     @PutMapping("/Classification/{productId}/{classId}/{typeId}/{countryId}")
     public Product setClassification(@PathVariable Long productId,@PathVariable Long classId ,@PathVariable Long typeId,@PathVariable Long countryId) {
@@ -64,35 +66,31 @@ public class Controller{
     public Collection<Product> product(){
         return productRepository.findAll();
     }
-    
-    @GetMapping("/Product/{productID}")
-    public Optional<Product> takeinProductByid(@PathVariable Long productID ){
-        return productRepository.findById(productID);
-    }
      // --------------- Country --------------
 
      @GetMapping("/Country")
      public Collection<Country> Country(){
          return countryRepository.findAll();
      }
-     @GetMapping("/Country/{countryID}")
-     public Optional<Country> takeinCountryByid(@PathVariable Long countryID ){
-         return countryRepository.findById(countryID);
-     }
-
     // --------------- Type --------------
     @GetMapping("/Type")
     public Collection<Type> Type(){
         return typeRepository.findAll();
-    }
-
-    @GetMapping("/Type/{typeID}")
-    public Optional<Type> takeinTypeByid(@PathVariable Long typeID ){
-        return typeRepository.findById(typeID);
     }
     @PostMapping("/Type/addType/{typeName}")
     public Type newType(@PathVariable String typeName){
         Type newType = new Type(typeName); 
         return typeRepository.save(newType); 
     }
+    @DeleteMapping("DeleteType/{typeID}")
+    public void deleteType(@PathVariable Long typeID){
+        Type target = typeRepository.findById(typeID).get();
+        typeRepository.delete(target);
+    }
+
+    @GetMapping("shopping/{search}")
+    public Collection<Product> search(@PathVariable String search) {
+        return productRepository.findByProductNameContainingIgnoreCase(search.toUpperCase()).stream().collect(Collectors.toList());
+    }
+
 }

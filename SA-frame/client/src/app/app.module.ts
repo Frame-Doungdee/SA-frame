@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     AppComponent,
     ClassificationComponent,
     ShoppingComponent,
-    MyFilterPipePipe
+    MyFilterPipePipe,
   ],
   imports: [
     BrowserModule,

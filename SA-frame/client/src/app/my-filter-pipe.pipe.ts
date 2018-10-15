@@ -1,9 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { ShoppingComponent } from './shopping/shopping.component';
 @Pipe({
   name: 'myFilterPipe'
 })
 export class MyFilterPipePipe implements PipeTransform {
+
   transform(value: any, args?: string): any {
+
     if(!args){
       return value;
     }
@@ -16,7 +19,10 @@ export class MyFilterPipePipe implements PipeTransform {
           return  items.productName;
         }   
       }
-      else if(items.productName.toUpperCase().indexOf(args) >= 0 || items.classification.className.toUpperCase().indexOf(args) >=0 || items.country.countryName.toUpperCase().indexOf(args) >=0 || items.type.typeName.indexOf(args) >=0 ){
+      else if(items.productName.toUpperCase().indexOf(args) >= 0 ||
+        items.classification.className.toUpperCase().indexOf(args) >=0 ||
+        items.country.countryName.toUpperCase().indexOf(args) >=0 ||
+        items.type.typeName.indexOf(args) >=0 ){
         return items.productName;
       }
     })

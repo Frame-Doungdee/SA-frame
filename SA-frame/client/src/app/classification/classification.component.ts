@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClassificationService} from '../shared/classification/classification.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-export interface PeriodicElement {  
+export interface Product {  
   productId: number;
   productName: string;
   classification:string;
@@ -34,7 +34,7 @@ ngOnInit() {
   getProductList(){
     this.classificationService.getProduct().subscribe(data => {
     this.products = data;
-    const productList: PeriodicElement[] = [];
+    const productList: Product[] = [];
     console.log(this.products);
     let productClassification,productType,productCountry;
     for (let index = 0; index < this.products["length"]; index++) {
